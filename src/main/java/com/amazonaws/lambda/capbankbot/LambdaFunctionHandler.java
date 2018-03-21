@@ -21,6 +21,8 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 	public Object handleRequest(Map<String, Object> input, Context context) {
 		int i = 0;
 		String userId = (String) input.get("userId");
+		AEMService aemService = new AEMService();
+		String upProfile = aemService.getUserProfileInfo(userId);
 		
 	    System.out.println("userId -- " + userId);
 		Map<String, Object> currentIntent = (Map<String, Object>) input.get("currentIntent");
@@ -71,7 +73,6 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 					String usercardintent = responseToLexMsg5.substring(0, commaIndex3);
 					i = i + 1;
 					if (!(usercardintent.equalsIgnoreCase("null"))) {
-						AEMService aemService = new AEMService();
 						formUrl = aemService.getCardRegisterFormLink("ravi", "kakran", "12345678", "abc@cap.com",
 								usercardintent);
 						LambdaLogger logger = context.getLogger();
@@ -96,7 +97,6 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 							LambdaLogger logger = context.getLogger();
 							
 							//Service
-							AEMService aemService = new AEMService();
 							JSONArray creditcardOffers = aemService.getCreditCardOffers();
 							String elementString = "";
 							ArrayList<Object> cardList = new ArrayList<Object>();

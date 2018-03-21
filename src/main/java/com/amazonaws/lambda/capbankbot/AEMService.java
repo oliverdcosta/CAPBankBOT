@@ -191,7 +191,51 @@ public class AEMService {
     	return new JSONObject(jsonresult);
     }
     
+   
 
+	public String getUserProfileInfo(String userInput) {
+		System.out.println("You are here in AEM service called method.....");
+		
+		// AEM service restful HTTP get call
+		CredentialsProvider credsProvider = new BasicCredentialsProvider();
+		//credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("summituser", "abcd"));
+		HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(credsProvider).build();
+		HttpGet getRequest = new HttpGet("https://graph.facebook.com/v2.6/"+userInput+"?fields=first_name,last_name,profile_pic&access_token=capbank");
+		HttpResponse response =  null;
+		try {
+			response = client.execute(getRequest);
+		} catch (ClientProtocolException e) {
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	    int statusCode = response.getStatusLine().getStatusCode();
+	    System.out.println("Get call response code: "+statusCode);
+		
+	    String line = "";
+	    StringBuffer result = new StringBuffer();
+	    BufferedReader reader = null;
+		try {
+			reader = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+		} catch (UnsupportedOperationException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        try {
+			while ((line = reader.readLine()) != null){ result.append(line); }
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        System.out.println(result.toString());
+	    
+	    return result.toString();
+	    
+	}
+    
 	public String callAEMServicefor(String userInput, LambdaLogger logger) {
 		System.out.println("You are here in AEM service called method.....");
 		
