@@ -3,6 +3,7 @@ package com.amazonaws.lambda.capbankbot;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -23,10 +24,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
 
-import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-import com.amazonaws.services.lambda.runtime.RequestHandler;
-import java.lang.reflect.Type;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -89,9 +87,9 @@ public class AEMService {
 	}
 
 	//public List<HashMap<String, String>> getCreditCardOffers()
-	public JSONArray getCreditCardOffers(){
+	public JSONArray getCreditCardOffers(String featureIntent){
 		System.out.println("Now getServiceresponse() service is being called.....");
-    	JSONObject bodyObj = getServiceResponse("http://www.cap-bank.us/services/GetProducts?query=cards");
+    	JSONObject bodyObj = getServiceResponse("http://www.cap-bank.us/services/GetProducts?query=cards&category="+featureIntent);
     	
     	System.out.println("before parsing..........."+bodyObj);
     	
@@ -193,17 +191,21 @@ public class AEMService {
     
    
 
-	public String getUserProfileInfo(String userInput) {
+    public String getUserProfileInfo(String userInput) {
 		System.out.println("You are here in AEM service called method.....");
 		
-		// AEM service restful HTTP get call
-		CredentialsProvider credsProvider = new BasicCredentialsProvider();
-		//credsProvider.setCredentials(AuthScope.ANY, new UsernamePasswordCredentials("summituser", "abcd"));
-		HttpClient client = HttpClientBuilder.create().setDefaultCredentialsProvider(credsProvider).build();
-		HttpGet getRequest = new HttpGet("https://graph.facebook.com/v2.6/"+userInput+"?fields=first_name,last_name,profile_pic&access_token=capbank");
+		HttpClient client = HttpClientBuilder.create().build();		
+		StringBuilder url = new StringBuilder();
+		
+		url.append("https://graph.facebook.com/v2.6/").append(userInput).append("?fields=first_name,last_name,profile_pic&access_token=EAAZAbP7jHJscBAMnegbrd6F66u6Y8u4OUEaxV4tmWT0XfnlHVqYkTWNDF7r4gOJAoEO6fZAcO97ynp3XoURZAWhWFvfqS68MOOirXt2lAyxgXEXlCqk1830xstBpaLjuQ4ZBIFwBIgWe8nKMdQYLTUNfl5vHviZCbZAXlfbIm0bAZDZD");
+		System.out.println("RequestURI: " + url.toString());
+		HttpGet req = new HttpGet(url.toString()); 
+		
 		HttpResponse response =  null;
 		try {
-			response = client.execute(getRequest);
+			response = client.execute(req);
+			System.out.println("Response: " + response.toString());
+			
 		} catch (ClientProtocolException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -231,8 +233,7 @@ public class AEMService {
 			e.printStackTrace();
 		}
         System.out.println(result.toString());
-	    
-	    return result.toString();
+        return result.toString();
 	    
 	}
     
