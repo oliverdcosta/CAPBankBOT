@@ -67,7 +67,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 				String filltypeintent = responseToLexMsg6.substring(0, commaIndex4);
 				i = i + 1;
 				if (!(filltypeintent.equalsIgnoreCase("null"))) {
-					if(!(filltypeintent.indexOf("online") == -1)) {
+					if(!(filltypeintent.toLowerCase().indexOf("online") == -1)) {
 						String defaultLink = "http://54.195.246.137/services/JsonResponceServlet?fName=karthik&sName=bajjuri&email=abc@gm.co&phone=12345678&preference=loan";
 						LambdaLogger logger = context.getLogger();
 						Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
@@ -76,7 +76,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 								new Message("PlainText", formLinkMessage));
 						i = i + 1;
 					}
-					if(!(filltypeintent.indexOf("call") == -1)) {
+					if(!(filltypeintent.toLowerCase().indexOf("call") == -1)) {
 						Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
 						String formLinkMessage = " Please share your contact number and a Live agent will give you a call";
 						dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots, "phone",
@@ -200,7 +200,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 								int commaIndex = responseToLexMsg2.indexOf(",");
 								String agreeToAnswer = responseToLexMsg2.substring(0, commaIndex);
 								if (!(agreeToAnswer.equalsIgnoreCase("null"))) {
-									if (agreeToAnswer.equalsIgnoreCase("yes")) {
+									if (agreeToAnswer.equalsIgnoreCase("no")) {
 										dialogAction = new DialogAction("Close", "Fulfilled",
 												new Message("PlainText", "Okay. You have a nice day!"));
 									} else {
@@ -219,7 +219,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 										
 										dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
 												"agreetoanswer", new Message("PlainText",
-														"Sure "+firstName+" ! I can help you with that. Do you mind if I ask you a few questions to help me find the right credit card to match your needs?"));
+														"Sure "+firstName+" ! I can help you with that. Can I ask you a few questions to help me find the right credit card to match your needs?"));
 									} else {
 										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
 										dialogAction = new DialogAction("Close", "Fulfilled", new Message("PlainText",
