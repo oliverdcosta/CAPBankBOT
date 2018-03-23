@@ -10,7 +10,7 @@ public class Card {
 	public Card(String card, String cardThumbnailImage, String cardThumbnailLink) {
 		this.card = card;
 		this.cardThumbnailImage = cardThumbnailImage;
-		this.cardThumbnailImage = cardThumbnailLink;
+		this.cardThumbnailLink = cardThumbnailLink;
 	}
 	public String getCard() {
 		return card;

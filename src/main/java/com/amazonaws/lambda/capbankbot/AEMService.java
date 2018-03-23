@@ -23,6 +23,7 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.client.RestTemplate;
 
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
 import com.google.gson.Gson;
@@ -89,7 +90,7 @@ public class AEMService {
 	//public List<HashMap<String, String>> getCreditCardOffers()
 	public JSONArray getCreditCardOffers(String featureIntent){
 		System.out.println("Now getServiceresponse() service is being called.....");
-    	JSONObject bodyObj = getServiceResponse("http://www.cap-bank.us/services/GetProducts?query=cards&category="+featureIntent);
+    	JSONObject bodyObj = getServiceResponse("http://www.cap-bank.us:4503/services/GetProducts?query=cards&category="+featureIntent);
     	
     	System.out.println("before parsing..........."+bodyObj);
     	
@@ -107,7 +108,7 @@ public class AEMService {
     	// http://54.195.246.137/services/JsonResponceServlet?fName=karthik&sName=bajjuri&email=abc@gm.co&phone=12345678&preference=loan 
     	String paramString = "fName="+((fName == null) ? "" : fName) + "&sName="+((lName == null) ? "" : lName)+"&phone="+
     			((phoneNo == null) ? "" : phoneNo)+"&email="+((emailId == null) ? "" : emailId)+"&preference="+((preference == null) ? "" : preference);
-    	String formServiceURL = "http://www.cap-bank.us/services/getApplyNow?" + paramString;
+    	String formServiceURL = "http://www.cap-bank.us:4503/services/getApplyNow?" + paramString;
     	System.out.println("Now getCardregisterFormLink() service is being called.....:: "+formServiceURL);
     	JSONObject bodyObj = getServiceResponse(formServiceURL);
     	
@@ -184,7 +185,7 @@ public class AEMService {
     
     public JSONObject getServiceResponse(String serviceURL) {
     	System.out.println("Service is about to call..........");
-    	BasicAuthRestTemplate restTemplate = new BasicAuthRestTemplate("summituser", "abcd");
+    	RestTemplate restTemplate = new RestTemplate(); 
     	ResponseEntity<String> jsonresult = restTemplate.getForEntity(serviceURL, String.class);
     	return new JSONObject(jsonresult);
     }
