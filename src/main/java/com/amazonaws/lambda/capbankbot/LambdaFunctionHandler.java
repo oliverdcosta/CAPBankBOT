@@ -222,9 +222,8 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 														"Sure "+firstName+" ! I can help you with that. Do you mind if I ask you a few questions to help me find the right credit card to match your needs?"));
 									} else {
 										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
-										dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
-												"agreetoanswer", new Message("PlainText",
-												"Sorry "+firstName+"; I did not understand. This service is only to provide information about credit cards we offer and help you apply for a credit card; Do you mind if I ask you a few questions to help me find the right credit card to match your needs?  "));
+										dialogAction = new DialogAction("Close", "Fulfilled", new Message("PlainText",
+												"Sorry "+firstName+"; I did not understand. This service is only to provide information about credit cards we offer and help you apply for a credit card;"));
 									}
 								}
 							}
@@ -276,8 +275,8 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 			card = (Card) cardList.get(i);
 			button = new Button(card.getCard(), card.getCard().toLowerCase().replaceAll("\\s", ""));
 			buttonArray[0] = button;
-			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", card.getCardThumbnailImage(),card.getCardThumbnailLink());
-			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select");
+			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", card.getCardThumbnailImage(),card.getCardThumbnailLink());
+			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select","http://www.cap-bank.us/content/capbank-portal/priority-first.html?wcmmode=disabled","");
 			attachmentArray[i] = attachment;
 		}
 		ResponseCard responseCard = new ResponseCard(attachmentArray, 1, "application/vnd.amazonaws.card.generic");
