@@ -275,8 +275,8 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 			card = (Card) cardList.get(i);
 			button = new Button(card.getCard(), card.getCard().toLowerCase().replaceAll("\\s", ""));
 			buttonArray[0] = button;
-			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", card.getCardThumbnailImage(),card.getCardThumbnailLink());
-			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select","http://www.cap-bank.us/content/capbank-portal/priority-first.html?wcmmode=disabled","");
+			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", card.getCardThumbnailImage(),card.getCardThumbnailLink());
+			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select","http://www.cap-bank.us/content/capbank-portal/priority-first.html?wcmmode=disabled","");
 			attachmentArray[i] = attachment;
 		}
 		ResponseCard responseCard = new ResponseCard(attachmentArray, 1, "application/vnd.amazonaws.card.generic");
