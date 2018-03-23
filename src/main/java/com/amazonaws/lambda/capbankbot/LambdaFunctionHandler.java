@@ -75,7 +75,6 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 				i = i + 1;
 				if (!(filltypeintent.equalsIgnoreCase("null"))) {
 					if (!(filltypeintent.toLowerCase().indexOf("online") == -1)) {
-						String defaultLink = "http://54.195.246.137/services/JsonResponceServlet?fName=karthik&sName=bajjuri&email=abc@gm.co&phone=12345678&preference=loan";
 						LambdaLogger logger = context.getLogger();
 						Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
 						String formLinkMessage = "Please complete the application here – " + formUrl
@@ -106,7 +105,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 						if (!(usercardintent.indexOf("elite") == -1) || !(usercardintent.indexOf("preferred") == -1)
 								|| !(usercardintent.indexOf("priority") == -1)) {
 							// AEMService aemService = new AEMService();
-							formUrl = aemService.getCardRegisterFormLink(firstName, lastName, "12345678", "abc@cap.com",
+							formUrl = aemService.getCardRegisterFormLink(firstName, lastName,null,null,
 									usercardintent);
 							formUrl = formUrl + usercardintent;
 							LambdaLogger logger = context.getLogger();

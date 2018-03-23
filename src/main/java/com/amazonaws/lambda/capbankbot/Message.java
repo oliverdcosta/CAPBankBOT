@@ -8,6 +8,7 @@ public class Message {
 		this.contentType = contentType;
 		this.content = content;
 	}
+    
 
 	public String getContentType() {
         return contentType;
