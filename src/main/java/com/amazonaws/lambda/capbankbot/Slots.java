@@ -6,18 +6,18 @@ public class Slots {
     private String agreetoanswer;
 	private String userscore;
 	private String featureintent;
-	private String thanks;
+	private String phone;
 	private String filltypeintent;
 	private String usercardintent;
 		
 	
-	public Slots(String creditcard, String agreetoanswer, String userscore, String featureintent, String thanks,
+	public Slots(String creditcard, String agreetoanswer, String userscore, String featureintent, String phone,
 			 String usercardintent,String filltypeintent) {
 		this.creditcard = creditcard;
 		this.agreetoanswer = agreetoanswer;
 		this.userscore = userscore;
 		this.featureintent = featureintent;
-		this.thanks = thanks;
+		this.phone = phone;
 		this.usercardintent = usercardintent;
 		this.filltypeintent = filltypeintent;
 	}
@@ -45,13 +45,14 @@ public class Slots {
 	public void setFeatureintent(String featureintent) {
 		this.featureintent = featureintent;
 	}
-	public String getThanks() {
-		return thanks;
-	}
-	public void setThanks(String thanks) {
-		this.thanks = thanks;
-	}
 
+
+	public String getPhone() {
+		return phone;
+	}
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
 	public String getUsercardintent() {
 		return usercardintent;
 	}
