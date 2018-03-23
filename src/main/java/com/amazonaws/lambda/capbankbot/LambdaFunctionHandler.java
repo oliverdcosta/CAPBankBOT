@@ -232,18 +232,27 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 									String responseToLexMsg0 = responseToLexMsg.substring(equalIndex0);
 									int commaIndex0 = responseToLexMsg0.indexOf(",");
 									String creditcardintent = responseToLexMsg0.substring(0, commaIndex0);
-									if (creditcardintent.toLowerCase().indexOf("credit") != -1) {
-										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
+									if (!(creditcardintent.equalsIgnoreCase("null"))) {
+										if (creditcardintent.toLowerCase().indexOf("credit") != -1) {
+											Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
 
-										dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
-												"agreetoanswer", new Message("PlainText", "Sure " + firstName
-														+ " ! I can help you with that. Can I ask you a few questions to help me find the right credit card to match your needs?"));
-									} else {
+											dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
+													"agreetoanswer", new Message("PlainText", "Sure " + firstName
+															+ " ! I can help you with that. Can I ask you a few questions to help me find the right credit card to match your needs?"));
+										} else {
+											
+											Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
+											dialogAction = new DialogAction("Close", "Fulfilled",
+													new Message("PlainText", "Sorry " + firstName 
+															+ "; I did not understand. This service is only to provide information about credit cards we offer and help you apply for a credit card;For more information, please visit https://www.cap-bank.us."));
+										}
+									}else {
 										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
-										dialogAction = new DialogAction("Close", "Fulfilled",
-												new Message("PlainText", "Sorry " + firstName
-														+ "; I did not understand. This service is only to provide information about credit cards we offer and help you apply for a credit card;For more information, please visit https://www.cap-bank.us."));
+										String formLinkMessage = "Sorry, I did not understand. Please share your contact number and a Live agent will give you a call";
+										dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots, "phone",
+												new Message("PlainText", formLinkMessage));
 									}
+
 								}
 							}
 						}

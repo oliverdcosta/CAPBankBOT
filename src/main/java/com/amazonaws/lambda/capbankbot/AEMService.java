@@ -197,8 +197,8 @@ public class AEMService {
 		
 		HttpClient client = HttpClientBuilder.create().build();		
 		StringBuilder url = new StringBuilder();
-		
-		url.append("https://graph.facebook.com/v2.6/").append(userInput).append("?fields=first_name,last_name,profile_pic&access_token=EAAZAbP7jHJscBAMnegbrd6F66u6Y8u4OUEaxV4tmWT0XfnlHVqYkTWNDF7r4gOJAoEO6fZAcO97ynp3XoURZAWhWFvfqS68MOOirXt2lAyxgXEXlCqk1830xstBpaLjuQ4ZBIFwBIgWe8nKMdQYLTUNfl5vHviZCbZAXlfbIm0bAZDZD");
+		String pat = System.getenv(CapBotConstants.PAGE_ACCESS_TOKEN);
+		url.append("https://graph.facebook.com/v2.6/").append(userInput).append("?fields=first_name,last_name,profile_pic&access_token="+pat);
 		System.out.println("RequestURI: " + url.toString());
 		HttpGet req = new HttpGet(url.toString()); 
 		
