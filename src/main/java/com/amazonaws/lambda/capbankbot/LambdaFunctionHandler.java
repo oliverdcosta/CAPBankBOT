@@ -239,10 +239,10 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 															+ " ! I can help you with that. Can I ask you a few questions to help me find the right credit card to match your needs?"));
 											
 //											dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
-//													"agreetoanswer", new Message("Composite", "{\\\"messages\\\":[\r\n" + 
-//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":0,\\\"value\\\":\\\"Plain text\\\"},\r\n" + 
-//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":1,\\\"value\\\":\\\"SSML text\\\"},\r\n" + 
-//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":2,\\\"value\\\":\\\"Custom payload\\\"}\r\n" + 
+//													"agreetoanswer", new Message("PlainText", "{\"messages\":["+
+//											"\"{\"type\":\"PlainText\",\"group\":0,\"value\":\"Plain text\"}\","+
+//											"\"{\"type\":\"PlainText\",\"group\":1,\"value\":\"SSML text\"}\","+
+//											"\"{\"type\":\"PlainText\",\"group\":2,\"value\":\"Custom payload\"}" + 
 //															"]}"));
 											
 										} else {
@@ -318,11 +318,8 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 			card = (Card) cardList.get(i);
 			button = new Button(card.getCard(), card.getCard().toLowerCase().replaceAll("\\s", ""));
 			buttonArray[0] = button;
-			StringBuilder sb1 = new StringBuilder(card.getCardThumbnailImage());
-			sb1.insert(22, ":4503");
-			StringBuilder sb2 = new StringBuilder(card.getCardThumbnailLink());
-			sb2.insert(22, ":4503");
-			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", sb1.toString(),sb2.toString());
+			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", card.getCardThumbnailImage(),card.getCardThumbnailLink());
+			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", sb1.toString(),sb2.toString());
 			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select","http://www.basildigital.com/projects/CitibankOctopusCreditCard/CitibankOctopusCreditCard_tn.jpg","www.google.com");
 			attachmentArray[i] = attachment;
 		}
@@ -395,5 +392,10 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 			return false;
 
 	}
+	
+//	StringBuilder sb1 = new StringBuilder(card.getCardThumbnailImage());
+//	sb1.insert(22, ":4503");
+//	StringBuilder sb2 = new StringBuilder(card.getCardThumbnailLink());
+//	sb2.insert(22, ":4503");
 
 }
