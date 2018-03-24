@@ -112,7 +112,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 							Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
 							String fillIntentMessage = "Great " + firstName
 									+ ", please refer to the card details at www.cap-bank.us/" + usercardintent
-									+ "; Would you like to complete the application on our website or would you like us to give you call now.";
+									+ "; Would you like to complete the application on our website or would you like us to give you call now?";
 							dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots, "filltypeintent",
 									new Message("PlainText", fillIntentMessage));
 						} else {
@@ -182,8 +182,7 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 								dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
 										"usercardintent", responseCard,
 										new Message("PlainText",
-												"Sure. Below are some credit cards which you might like. Please click on a card to know more about it; "
-														+ "For a complete list of credit cards, please visit – www.cap-bank.us/credit-cards"));
+												"Sure. Below are some credit cards which you might like. Please click on a card to know more about it; "));
 							} else {
 								dialogAction = new DialogAction("Close", "Fulfilled", new Message("PlainText",
 										"For a complete list of credit cards, please visit – www.cap-bank.us/credit-cards; Please select a card from the list and we can help you complete the application\r\n"));
@@ -218,8 +217,9 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 								String agreeToAnswer = responseToLexMsg2.substring(0, commaIndex);
 								if (!(agreeToAnswer.equalsIgnoreCase("null"))) {
 									if (agreeToAnswer.equalsIgnoreCase("no")) {
-										dialogAction = new DialogAction("Close", "Fulfilled",
-												new Message("PlainText", "Okay. You have a nice day!"));
+										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
+										dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
+												"agreetoanswer", new Message("PlainText", "Sorry, I did not understand. Can I ask you a few questions to help me find the right credit card to match your needs?"));
 									} else {
 										responseCard = processScoreResponsecard();
 										Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
@@ -234,10 +234,17 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 									if (!(creditcardintent.equalsIgnoreCase("null"))) {
 										if (creditcardintent.toLowerCase().indexOf("credit") != -1) {
 											Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
-
 											dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
 													"agreetoanswer", new Message("PlainText", "Sure " + firstName
 															+ " ! I can help you with that. Can I ask you a few questions to help me find the right credit card to match your needs?"));
+											
+//											dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots,
+//													"agreetoanswer", new Message("Composite", "{\\\"messages\\\":[\r\n" + 
+//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":0,\\\"value\\\":\\\"Plain text\\\"},\r\n" + 
+//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":1,\\\"value\\\":\\\"SSML text\\\"},\r\n" + 
+//															"   {\\\"type\\\":\\\"PlainText\\\",\\\"group\\\":2,\\\"value\\\":\\\"Custom payload\\\"}\r\n" + 
+//															"]}"));
+											
 										} else {
 											
 											Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
@@ -269,16 +276,14 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 
 	private ResponseCard processScoreResponsecard() {
 		// String scoreString = "<500 | 500 to 600 | 600 to 700 | 700 to 800 | 800+";
-		Button buttonArray[] = new Button[4];
+		Button buttonArray[] = new Button[3];
 		Button button = null;
-		button = new Button("500 or less - Poor", "500");
+		button = new Button("750+ - Excellent", "800");
 		buttonArray[0] = button;
-		button = new Button("500 - 800 - Good", "500 - 800");
+		button = new Button("600 to 750 – Good", "500 - 800");
 		buttonArray[1] = button;
-		button = new Button("800 or more - Great", "800");
+		button = new Button("600 or below - Poor", "500");
 		buttonArray[2] = button;
-		button = new Button("1000 or more - Great", "800");
-		buttonArray[3] = button;
 		Attachment attachmentArray[] = new Attachment[1];
 		attachmentArray[0] = new Attachment(buttonArray, "What is your approximate credit score?", "Select the Score");
 		ResponseCard responseCard = new ResponseCard(attachmentArray, 1, "application/vnd.amazonaws.card.generic");
@@ -313,9 +318,11 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 			card = (Card) cardList.get(i);
 			button = new Button(card.getCard(), card.getCard().toLowerCase().replaceAll("\\s", ""));
 			buttonArray[0] = button;
-			StringBuilder sb = new StringBuilder(card.getCardThumbnailImage());
-			sb.insert(22, ":4503"); 
-			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", sb.toString(),card.getCardThumbnailLink());
+			StringBuilder sb1 = new StringBuilder(card.getCardThumbnailImage());
+			sb1.insert(22, ":4503");
+			StringBuilder sb2 = new StringBuilder(card.getCardThumbnailLink());
+			sb2.insert(22, ":4503");
+			attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select", sb1.toString(),sb2.toString());
 			//attachment = new Attachment(buttonArray, card.getCard(), "Browse and Select","http://www.basildigital.com/projects/CitibankOctopusCreditCard/CitibankOctopusCreditCard_tn.jpg","www.google.com");
 			attachmentArray[i] = attachment;
 		}
