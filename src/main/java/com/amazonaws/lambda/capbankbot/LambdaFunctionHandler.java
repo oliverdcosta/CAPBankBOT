@@ -15,7 +15,7 @@ import com.amazonaws.services.lambda.runtime.RequestHandler;
 
 public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>, Object> {
 
-	String formUrl = "https://www.cap-bank.us/";
+	String formUrl = "http://www.cap-bank.us:4503/content/capbank-portal";
 
 	@Override
 	public Object handleRequest(Map<String, Object> input, Context context) {
@@ -110,8 +110,18 @@ public class LambdaFunctionHandler implements RequestHandler<Map<String, Object>
 							formUrl = formUrl + usercardintent;
 							LambdaLogger logger = context.getLogger();
 							Slots slots = new Slots("null", "null", "null", "null", "null", "null", "null");
+							String usercardlink = "";
+							if(!(usercardintent.indexOf("elite") == -1)) {
+								usercardlink = "elite";
+							}
+							if(!(usercardintent.indexOf("preferred") == -1)) {
+								usercardlink = "preferred";
+							}
+							if(!(usercardintent.indexOf("priority") == -1)) {
+								usercardlink = "priority-first";
+							}
 							String fillIntentMessage = "Great " + firstName
-									+ ", please refer to the card details at www.cap-bank.us/" + usercardintent
+									+ ", please refer to the card details at http://www.cap-bank.us:4503/content/capbank-portal/" + usercardlink+".html"
 									+ "; Would you like to complete the application on our website or would you like us to give you call now?";
 							dialogAction = new DialogAction("ElicitSlot", "FirstCreditIntent", slots, "filltypeintent",
 									new Message("PlainText", fillIntentMessage));
