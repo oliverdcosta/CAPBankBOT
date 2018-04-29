@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.capbankbot;
+package com.amazonaws.lambda.capbankbot.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;

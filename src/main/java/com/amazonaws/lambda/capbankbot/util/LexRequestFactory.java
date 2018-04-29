@@ -1,9 +1,8 @@
-package com.amazonaws.lambda.capbankbot;
+package com.amazonaws.lambda.capbankbot.util;
 
-import java.util.HashMap;
 import java.util.Map;
 
-import static org.apache.http.util.TextUtils.isEmpty;
+import com.amazonaws.lambda.capbankbot.beans.LexRequest;
 
 public class LexRequestFactory {
     public static LexRequest createLexRequest(Map<String, Object> input) {

@@ -1,4 +1,4 @@
-package com.amazonaws.lambda.capbankbot;
+package com.amazonaws.lambda.capbankbot.beans;
 
 import java.util.LinkedHashMap;
 import java.util.Map;
