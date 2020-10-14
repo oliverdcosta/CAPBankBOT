@@ -1,7 +1,6 @@
 package com.amazonaws.lambda.capbankbot.beans;
 
 public class Card {
-	
 	public String card;
 	public String cardThumbnailImage;
 	public String cardThumbnailLink;
