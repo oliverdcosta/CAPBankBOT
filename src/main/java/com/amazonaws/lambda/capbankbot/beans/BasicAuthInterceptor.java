@@ -20,6 +20,7 @@ public class BasicAuthInterceptor implements ClientHttpRequestInterceptor {
     }
 
     public static String encodeCredentialsForBasicAuth(String username, String password) {
+	    
         return "Basic " + new Base64().encodeToString((username + ":" + password).getBytes());
     }
 
