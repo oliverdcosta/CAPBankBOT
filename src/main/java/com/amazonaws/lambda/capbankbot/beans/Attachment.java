@@ -1,14 +1,14 @@
 package com.amazonaws.lambda.capbankbot.beans;
 
 public class Attachment {
-	
-    private Button[] buttons;
+   private Button[] buttons;
     private String subTitle;
     private String title;
     private String imageUrl;
     private String attachmentLinkUrl;
     		
 //test pipeline 2
+	// check 
 	public Attachment(Button[] buttons, String subTitle, String title, String imageUrl, String attachmentLinkUrl) {
 		this.buttons = buttons;
 		this.subTitle = subTitle;
