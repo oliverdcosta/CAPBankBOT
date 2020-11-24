@@ -3,7 +3,6 @@ import com.amazonaws.services.lambda.runtime.ClientContext;
 import com.amazonaws.services.lambda.runtime.CognitoIdentity;
 import com.amazonaws.services.lambda.runtime.Context;
 import com.amazonaws.services.lambda.runtime.LambdaLogger;
-
 /**
  * A simple mock implementation of the {@code Context} interface. Default
  * values are stubbed out, and setters are provided so you can customize
