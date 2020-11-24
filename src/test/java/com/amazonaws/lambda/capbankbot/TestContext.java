@@ -9,6 +9,7 @@ import com.amazonaws.services.lambda.runtime.LambdaLogger;
  * values are stubbed out, and setters are provided so you can customize
  * the context before passing it to your function.
  */
+
 public class TestContext implements Context {
 
     private String awsRequestId = "EXAMPLE";
