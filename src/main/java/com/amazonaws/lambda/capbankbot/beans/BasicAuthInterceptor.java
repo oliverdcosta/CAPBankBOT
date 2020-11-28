@@ -1,7 +1,6 @@
 package com.amazonaws.lambda.capbankbot.beans;
 
 import java.io.IOException;
-
 import org.apache.tomcat.util.codec.binary.Base64;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpRequest;
