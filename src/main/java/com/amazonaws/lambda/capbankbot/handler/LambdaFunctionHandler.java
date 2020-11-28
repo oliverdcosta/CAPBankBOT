@@ -1,5 +1,4 @@
 package com.amazonaws.lambda.capbankbot.handler;
-
 import java.io.FileInputStream;
 import java.util.ArrayList;
 import java.util.Map;
