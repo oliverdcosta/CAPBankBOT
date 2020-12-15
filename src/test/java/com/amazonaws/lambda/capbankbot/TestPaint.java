@@ -1,0 +1,1 @@
+/* This is a Test Paint java file */
